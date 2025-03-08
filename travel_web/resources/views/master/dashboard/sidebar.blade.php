@@ -14,8 +14,7 @@
                     User
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <div class="collapse" id="userLayouts" aria-labelledby="headingOne"
-                    data-bs-parent="#sidenavAccordion">
+                <div class="collapse" id="userLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="{{ route('user.admin.index') }}">Admin</a>
                         <a class="nav-link" href="{{ route('user.index') }}">User</a>
@@ -34,7 +33,46 @@
                         <a class="nav-link" href="{{ route('travel.index') }}">Travel</a>
                     </nav>
                 </div>
+                <div class="sb-sidenav-menu-heading">Order</div>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#orderLayouts"
+                    aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-box"></i></div>
+                    Order
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="orderLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{ route('order.index') }}">Order</a>
+                    </nav>
+                </div>
+                <div class="sb-sidenav-menu-heading">Histori</div>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#historiLayouts"
+                    aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                    Histori
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="historiLayouts" aria-labelledby="headingOne"
+                    data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{ route('history.admin.index') }}">All Order</a>
+                        <a class="nav-link" href="{{ route('history.user.index') }}">Histori</a>
+                    </nav>
+                </div>
             @else
+                <div class="sb-sidenav-menu-heading">Histori</div>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#historiLayouts"
+                    aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                    Histori
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="historiLayouts" aria-labelledby="headingOne"
+                    data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{ route('history.user.index') }}">Histori</a>
+                    </nav>
+                </div>
             @endif
         </div>
     </div>

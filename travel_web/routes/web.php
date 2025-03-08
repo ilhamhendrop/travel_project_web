@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegistrasiController;
 use App\Http\Controllers\TravelController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -18,9 +22,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::controller(HomeController::class)->group(function () {
+   Route::get('/', 'index_home')->name('home.index');
+   Route::get('/home/travel/{travel}/detail', 'detail_product')->name('home.detail');
+});
+
 Route::controller(LoginController::class)->group(function () {
-    Route::get('/', 'index_login')->name('login.index');
+    Route::get('/login', 'index_login')->name('login.index');
     Route::post('/login/store', 'login_store')->name('login.store');
+});
+
+Route::controller(RegistrasiController::class)->group(function () {
+   Route::get('/registrasi', 'index_registrasi')->name('registrasi.index');
+   Route::post('/registrasi/store', 'store_registrasi')->name('registrasi.store');
 });
 
 Route::middleware(['auth', 'role:Admin'])->group(function () {
@@ -52,5 +66,48 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
         Route::get('/dashboard/travel/{travel}/edit', 'edit_travel')->name('travel.edit');
         Route::patch('/dashboard/travel/{travel}/edit', 'update_travel')->name('travel.update');
         Route::delete('/dashboard/travel/{travel}/delete', 'delete_travel')->name('travel.delete');
+    });
+
+    Route::controller(OrderController::class)->group(function () {
+        Route::post('/home/travel/{travel}/order/store', 'store_travel')->name('order.store');
+        Route::get('/home/travel/{travel}/order/payment', 'index_payment')->name('order.payment');
+        Route::patch('/home/travel/{travel}/order/{order}/payment/upload', 'upload_payment')->name('order.payment.upload');
+        Route::get('/dashboard/order', 'index_order')->name('order.index');
+        Route::get('/dashboard/order/data', 'data_order')->name('order.data');
+        Route::get('/dashboard/order/{order}/detail', 'detail_order')->name('order.detail');
+        Route::patch('/dashboard/order/{order}/order/status', 'update_status')->name('order.status');
+        Route::get('/dashboard/order/{order}/order/payment/send', 'send_payment')->name('order.payment.send');
+    });
+
+    Route::controller(HistoryController::class)->group(function () {
+        Route::get('/dashboard/history', 'index_history_user')->name('history.user.index');
+        Route::get('/dashboard/history/data', 'data_history_user')->name('history.user.data');
+        Route::get('/dashboard/history/order/{order}/detail', 'detail_history_user')->name('history.detail.user');
+        Route::get('/dashboard/history/admin', 'index_history_admin')->name('history.admin.index');
+        Route::get('/dashboard/history/admin/data', 'data_history_admin')->name('history.admin.data');
+        Route::get('/dashboard/history/admin/order/{order}/detail', 'detail_history_admin')->name('history.admin.detail');
+    });
+
+});
+
+Route::middleware(['auth', 'role:User'])->group(function () {
+    Route::controller(LoginController::class)->group(function () {
+        Route::post('/logout', 'logout')->name('logout');
+    });
+
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('/dashboard', 'index_dashboard')->name('dashboard.index');
+    });
+
+    Route::controller(OrderController::class)->group(function () {
+        Route::post('/home/travel/{travel}/order/store', 'store_travel')->name('order.store');
+        Route::get('/home/travel/{travel}/order/payment', 'index_payment')->name('order.payment');
+        Route::patch('/home/travel/{travel}/order/{order}/payment/upload', 'upload_payment')->name('order.payment.upload');
+    });
+
+    Route::controller(HistoryController::class)->group(function () {
+        Route::get('/dashboard/history', 'index_history_user')->name('history.user.index');
+        Route::get('/dashboard/history/data', 'data_history_user')->name('history.user.data');
+        Route::get('/dashboard/history/order/{order}/detail', 'detail_history_user')->name('history.detail.user');
     });
 });

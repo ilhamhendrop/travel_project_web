@@ -35,7 +35,7 @@
                         </form>
                     </div>
                     <div class="py-3 text-center card-footer">
-                        <div class="small"><a href="register.html">Need an account? Sign up!</a></div>
+                        <div class="small"><a href="{{ route('registrasi.index') }}">Sign up</a></div>
                     </div>
                 </div>
             </div>

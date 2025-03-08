@@ -16,4 +16,8 @@ class Travel extends Model
         'quota',
         'price',
     ];
+
+    public function order() {
+        return $this->hasMany(Order::class);
+    }
 }
